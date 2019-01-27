@@ -1,0 +1,40 @@
+Fibonacci: F(1)=1,F(2)=1,F(n)=F(n-1)+F(n-2)
+
+假定一个数列长度=F(n)-1，就可以用下面的查找方法
+why F(n)-1?
+可以保证二分后形式的一致，长度=F(n)-1的数列去除mid之后，就会分为F(n-1)-1, F(n-2)-1的2个分块；如果是F(n), 后续处理会更麻烦，但是应该可以处理的。
+例如统一把1减在左半边，然后左半边数列的最前面加个更小的值补齐，再动态调整low和high即可
+class Solution:
+    def fibona(self,t):
+        a=1
+        b=1
+        c=0
+        if t==1:
+            return 1
+        if t==2:
+            return 1
+        for i in range(t-2):
+            c=a+b
+            a=b
+            b=c
+        return c
+    
+    def reverse_fibo(self,num):
+        for i in range(1000):
+            if self.fibona(i+1)-1 == num:
+                return i+1
+    
+    def Find(self,value,List):
+        low=0
+        high=len(List)-1
+        while low<=high:
+            T=self.reverse_fibo(len(List))
+            mid=low+self.fibona(T-1)-1
+            if List[mid]==value:
+                return mid
+            elif List[mid] < value:
+                return self.Find(value,List[mid+1:high+1])
+            elif List[mid] > value:
+                return self.Find(value,List[low:mid])
+        return False
+   
