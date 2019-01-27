@@ -6,6 +6,26 @@
 　　mid=low+(key_value-a[low])/(a[high]-a[low])*(high-low)，
 　　也就是将上述的比例参数1/2改进为自适应的，根据关键字在整个有序表中所处的位置，让mid值的变化更靠近关键字key，这样也就间接地减少了比较次数。
 　　基本思想：基于二分查找算法，将查找点的选择改进为自适应选择，可以提高查找效率。
+  
+常规写法：
+# -*- coding:utf-8 -*-
+class Solution:
+    def Find(self, value, a):
+        low=0
+        high=len(a)-1
+        while low<=high:
+          mid = low+((high-low)*(value-a[low])/(a[high]-a[low]))
+          if a[mid]==value:
+            return mid
+          if a[mid]>value:
+            high = mid-1
+          if a[mid]<value:
+            low = mid+1
+        return False
+  
+  
+  
+
   递归写法：
   # 插值查找，只适用于有序的情况
 # -*- coding:utf-8 -*-
@@ -28,3 +48,4 @@ Note:
 mid = low+((high-low)*(value-a[low])/(a[high]-a[low]))
 mid = low+((value-a[low])/(a[high]-a[low])*(high-low))
 这2个写法结果会不一样，由于python2自动整除的机制，因此除法运算必须注意顺序
+
