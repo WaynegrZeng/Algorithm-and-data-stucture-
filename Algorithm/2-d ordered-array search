@@ -1,0 +1,34 @@
+# 二维数组查找（行列递增）
+思路：先根据递增这个信息删除掉冗余的行和列，再对剩下的进行搜索
+进一步改进思路：对剩下的搜索可以采用该题的最优解法[左下开始，比target value大就往上走，反之往右走]，应该会更快
+# -*- coding:utf-8 -*-
+class Solution:
+    # array 二维列表
+    def Find(self, target, array):
+        #用list实现的array
+        num_row = len(array)
+        num_col = len(array[0])
+        row = 0
+        col = 0
+        index = 0
+        for i in range(num_row-1):
+                if target == array[i][0]:
+                    return True
+                elif target < array[i][0]:
+                    row=i
+                    break
+        for i in range(num_col-1):
+                if target == array[0][i]:
+                    return True
+                elif target < array[0][i]:
+                    col=i
+                    break
+        if row==0:
+            row=num_row
+        if col==0:
+            col=num_col
+        for i in range(row):
+            for j in range(col):
+                if target == array[i][j]:
+                    return True
+        return False
