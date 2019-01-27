@@ -1,0 +1,9 @@
+# 单列表遍历搜索
+# -*- coding:utf-8 -*-
+class Solution:
+    def Find(self, target, List):
+        n=len(List)
+        for i in range(n):
+            if List[i]==target:
+               return True
+        return False
