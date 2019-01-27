@@ -1,4 +1,5 @@
 # 二分查找，只适用于有序的情况
+常规写法：
 # -*- coding:utf-8 -*-
 class Solution:
     def Find(self, value, a):
@@ -14,4 +15,22 @@ class Solution:
             low = mid+1
         return False
         
+递归写法：
+# 二分查找，只适用于有序的情况
+# -*- coding:utf-8 -*-
+class Solution:
+    def Find(self, value, a):
+        low=0
+        high=len(a)
+        while low<=high:
+          mid = (low+high)/2
+          if a[mid]==value:
+            return mid
+          if a[mid]>value:
+             return self.Find(value,a[low:mid])
+          if a[mid]<value:
+             return self.Find(value,a[mid+1:high+1])
+        return False
+        
+调用类方法时，类中的self会替换成类的实例。因此如果递归时候不在函数前面写self，那么脱离了实例的单独的Find自然就是没有被define的一个东西[INSTANCE.FIND()才可以被识别]
  
