@@ -5,6 +5,7 @@ why F(n)-1?
 可以保证二分后形式的一致，长度=F(n)-1的数列去除mid之后，就会分为F(n-1)-1, F(n-2)-1的2个分块；如果是F(n), 后续处理会更麻烦，但是应该可以处理的。
 例如统一把1减在左半边，然后左半边数列的最前面加个更小的值补齐，再动态调整low和high即可
 class Solution:
+    #计算F(t)的值
     def fibona(self,t):
         a=1
         b=1
@@ -18,12 +19,12 @@ class Solution:
             a=b
             b=c
         return c
-    
+    #计算长度为NUM的list对应的F(t)的t
     def reverse_fibo(self,num):
         for i in range(1000):
             if self.fibona(i+1)-1 == num:
                 return i+1
-    
+    #主体部分，除了mid变了，其他没有变化
     def Find(self,value,List):
         low=0
         high=len(List)-1
