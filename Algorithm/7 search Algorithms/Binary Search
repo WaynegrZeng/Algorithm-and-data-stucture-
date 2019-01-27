@@ -1,0 +1,17 @@
+# 二分查找，只适用于有序的情况
+# -*- coding:utf-8 -*-
+class Solution:
+    def Find(self, value, a):
+        low=0
+        high=len(a)
+        while low<=high:
+          mid = (low+high)/2
+          if a[mid]==value:
+            return mid
+          if a[mid]>value:
+            high = mid-1
+          if a[mid]<value:
+            low = mid+1
+        return False
+        
+ 
