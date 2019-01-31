@@ -1,0 +1,36 @@
+class node:
+    def __init__(self, data, left=None, right=None):
+    #需要2个横杠
+        self.data=data
+        self.left=left
+        self.right=right
+        
+class bstree:
+    def __init__(self):
+    # init前面有2个横杠，不然无法初始化
+        self.root = None
+    def insert(self,key):
+        if self.root==None:
+            self.root=node(key)
+            return
+        temp=self.root
+        while True:
+        #loop instance node
+            nodevalue=temp.data
+            if key<nodevalue:
+                #None means this node has space for key to grow
+                if temp.left==None:
+                    temp.left=node(key)
+                    return
+                temp=temp.left
+            if key>nodevalue:
+                if temp.right==None:
+                    temp.right=node(key)
+                    return
+                temp=temp.right
+            else:
+                #相当于不允许有相同的数字，如果允许的话只要在上面2个if里选1个加等号就可以了
+                temp.data=key
+                #一定要写return，while会变成死循环boom
+                return
+  
