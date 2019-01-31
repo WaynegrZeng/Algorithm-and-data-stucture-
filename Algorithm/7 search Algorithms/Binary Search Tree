@@ -33,4 +33,15 @@ class bstree:
                 temp.data=key
                 #一定要写return，while会变成死循环boom
                 return
+     def search(self,key):
+        temp=self.root
+        while temp is not None:
+        #非空存储对象并不等于true，不能用布尔概念去做判断，而是用非NONE
+            if temp.data==key:
+                return key
+            if temp.data>key:
+                temp=temp.left
+            if temp.data<key:
+                temp=temp.right
+        return 0
   
