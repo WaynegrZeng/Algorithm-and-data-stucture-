@@ -43,10 +43,13 @@ class bstree:
         node_buffer=[]
         temp=self.root
         result=[]
+        #必须node_buffer与temp都空了才可以确认遍历完毕。例如左子树遍历完后，pop出根节点，此时buffer空了，但是右子树还没开始呢
         while node_buffer or temp:
+            #从最左边开始打，并用buffer记录沿途的子树的根节点，方便未来回溯
             while temp:
                 node_buffer.append(temp)
                 temp=temp.left
+            #开始回溯并打印
             node=node_buffer.pop()
             result.append(node.data)
             temp=node.right
