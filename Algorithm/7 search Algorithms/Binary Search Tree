@@ -39,6 +39,19 @@ class bstree:
                 #一定要写return，while会变成死循环boom
                 return"ok3"
                 
+    def mid_iter(self):
+        node_buffer=[]
+        temp=self.root
+        result=[]
+        while node_buffer or temp:
+            while temp:
+                node_buffer.append(temp)
+                temp=temp.left
+            node=node_buffer.pop()
+            result.append(node.data)
+            temp=node.right
+        print result                
+               
     def search(self,key):
         temp=self.root
         while temp is not None:
