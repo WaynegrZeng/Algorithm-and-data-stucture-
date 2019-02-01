@@ -74,7 +74,7 @@ class bstree:
                 
         if current_node.left is None and current_node.right is None:
             if before_node==None:
-                current_node=None
+                self.root=None
                 return "tree is clear"
             if dire==0:
                 before_node.left=None
