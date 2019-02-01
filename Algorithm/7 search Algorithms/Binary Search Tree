@@ -54,6 +54,8 @@ class bstree:
             node=node_buffer.pop()
             result.append(node.data)
             temp=node.right
+        #还可以使用yield方法来生成iterator，return出去再loop打印出来
+        #使用print方法的话无法保存结果
         print result                
                
     def search(self,key):
