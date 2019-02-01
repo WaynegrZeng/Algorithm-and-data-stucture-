@@ -1,18 +1,23 @@
-class node:
-    def __init__(self, data, left=None, right=None):
-    #需要2个横杠
-        self.data=data
-        self.left=left
-        self.right=right
-        
+# init的左右是2条杠，只写1条是没用的
+# 循环里的if语句如果更新了某个变量的状态，并且更新后没有任何必要执行后面的代码，则必须要continue跳出本次循环；在这段代码里被这个问题坑了2次
+# 变量名只是指向内存的一个指针；删除变量名并不能删除内存对象
+# 要删除某个内存，只要让它失去被调用的可能性即可，再手动执行以下gc.collection()
+# 为了方便debug，写代码的时候可以在return后面加上点东西，这样就很容易定位问题了
+# 要用归纳法的思维考虑问题；在最前面的时候往往会有不符合归纳范式的情况，如果不考虑进来流程会不完善
+#2 > None >>> true
+
+
 class bstree:
+        
     def __init__(self):
-    # init前面有2个横杠，不然无法初始化
         self.root = None
     def insert(self,key):
         if self.root==None:
             self.root=node(key)
-            return
+            return "meta-root"
+        if self.root.data==None:
+            self.root.data=key
+            return "meta-root"
         temp=self.root
         while True:
         #loop instance node
@@ -21,27 +26,102 @@ class bstree:
                 #None means this node has space for key to grow
                 if temp.left==None:
                     temp.left=node(key)
-                    return
+                    return "OK1"
                 temp=temp.left
+                continue
             if key>nodevalue:
                 if temp.right==None:
                     temp.right=node(key)
-                    return
+                    return "OK2"
                 temp=temp.right
+                continue
             else:
                 #相当于不允许有相同的数字，如果允许的话只要在上面2个if里选1个加等号就可以了
                 temp.data=key
                 #一定要写return，while会变成死循环boom
-                return
-     def search(self,key):
+                return"ok3"
+    def search(self,key):
         temp=self.root
         while temp is not None:
-        #非空存储对象并不等于true，不能用布尔概念去做判断，而是用非NONE
             if temp.data==key:
-                return key
+                return temp
             if temp.data>key:
                 temp=temp.left
             if temp.data<key:
                 temp=temp.right
-        return 0
-  
+        return "None"
+        
+        
+    def delete(self,key):
+        before_node, current_node= None, self.root
+        dire=None
+        
+        
+        #get the node for key the the node before it
+        while True:
+            if current_node==None:
+                return"not available"
+            if current_node.data==key:
+                break
+            if current_node.data>key:
+                before_node=current_node
+                current_node=current_node.left
+                #dire记录被删节点的父节点与被删节点的方向关系。被删节点在左为0，右为1.
+                dire=0
+                continue
+            if current_node.data<key:
+                before_node=current_node
+                current_node=current_node.right
+                dire=1
+                continue
+
+                
+                
+        if current_node.left is None and current_node.right is None:
+            if before_node==None:
+                current_node.data=None
+                return "tree is clear"
+            if dire==0:
+                before_node.left=None
+            if dire==1:
+                before_node.right=None
+            return "delete a leaf"
+        
+        if current_node.left is None and current_node.right is not None:
+            if before_node is None:
+                self.root=current_node.right
+                return "root deleted"
+            if dire == 1:
+                before_node.right=current_node.right
+            else:
+                before_node.left=current_node.right
+            return  "delete a root for a right_sub_tree"
+        
+        if current_node.left is not None and current_node.right is None:
+            if before_node is None:
+                self.root=current_node.left
+                return "root deleted"
+                
+            if dire==1:
+                before_node.right=current_node.left
+            else:
+                before_node.left=current_node.left
+            return  "delete a root of a left_sub_tree"
+        
+        if current_node.left is not None and current_node.right is not None:
+            root_of_target=None
+            target_node=current_node
+            point_node=current_node.right
+            while point_node is not None:
+                root_of_target,target_node,point_node=target_node,point_node,point_node.left                
+            current_node.data=target_node.data
+            if root_of_target==current_node:
+                root_of_target.right=None
+            else:
+                root_of_target.left=None
+            return  "delete a root for a double_side_sub_tree"
+                
+        
+            
+        
+        
