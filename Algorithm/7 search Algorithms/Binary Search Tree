@@ -11,13 +11,11 @@ class bstree:
         
     def __init__(self):
         self.root = None
+        
     def insert(self,key):
         if self.root==None:
             self.root=node(key)
-            return "meta-root"
-        if self.root.data==None:
-            self.root.data=key
-            return "meta-root"
+            return "meta-root"   
         temp=self.root
         while True:
         #loop instance node
@@ -40,6 +38,7 @@ class bstree:
                 temp.data=key
                 #一定要写return，while会变成死循环boom
                 return"ok3"
+                
     def search(self,key):
         temp=self.root
         while temp is not None:
@@ -55,8 +54,6 @@ class bstree:
     def delete(self,key):
         before_node, current_node= None, self.root
         dire=None
-        
-        
         #get the node for key the the node before it
         while True:
             if current_node==None:
@@ -74,12 +71,10 @@ class bstree:
                 current_node=current_node.right
                 dire=1
                 continue
-
-                
                 
         if current_node.left is None and current_node.right is None:
             if before_node==None:
-                current_node.data=None
+                current_node=None
                 return "tree is clear"
             if dire==0:
                 before_node.left=None
@@ -101,7 +96,6 @@ class bstree:
             if before_node is None:
                 self.root=current_node.left
                 return "root deleted"
-                
             if dire==1:
                 before_node.right=current_node.left
             else:
