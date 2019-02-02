@@ -1,0 +1,19 @@
+#block search
+#假设是分块递增
+class block_search:
+    #索引表需要事先存储好并输入,不然的话跟顺序查找就没什么区别了
+    def search(self,key,data,index_table):
+        max_key=index_table[0]
+        index=index_table[1]
+        if len(index)==1:
+            return"you are not supposed to call this function"
+        gap=index[1]-index[0]
+        if key>max_key[-1] or key<max_key[0]:
+            return "not here"
+        else:
+            for i in xrange(len(index)):
+                if max_key>=key:
+                    for i in xrange(index[i],index[i]+gap):
+                        if data[i]==key:
+                            return i
+            return "not here"
