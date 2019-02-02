@@ -1,3 +1,42 @@
-Core Reference:https://www.cnblogs.com/cxchanpin/p/7389133.html
-sub-assistant Reference: https://www.cnblogs.com/youngerchina/p/5624453.html
-流程：哈希函数>>>哈希离散list
+哈希函数采用的余数法。
+collision的解决方式是直接往后线性移动寻找空位置。
+
+class Hashtable:
+    def __init__(self,length=1000):
+        self.hashtable=[None]*length
+        self.length=length
+    def hashfun(self,key):
+        index=key%self.length
+        return index
+    def insert(self,key):
+        index=self.hashfun(key)
+        temp=index
+        while self.hashtable[temp]:
+            # 线性寻找表上每一个可能有空位的地方，因此在最坏情况下查找，插入以及删除的时间复杂度会挺高的[这3个操作都需要一样的寻址过程，也因此对于哈希方法而言正确的哈希函数设定是很中亚ide]；
+            temp=self.hashfun(temp+1)
+            if temp==index:
+                return "nowhere left"
+        self.hashtable[temp]=key
+    def search(self,key):
+        index=self.hashfun(key)
+        temp=key
+        while self.hashtable[index]!=key:
+            temp=self.hashfun(temp+1)
+            if temp==index:
+                return "no this key"
+        else:
+            return temp
+    def delete(self,key):
+        index=self.search(key)
+        if isinstance(index,int):
+            self.hashtable[index]=None
+        
+        
+        
+测试：    
+A=Hashtable()
+A.insert(10)
+A.insert(12)
+A.search(12)
+A.delete(12)
+A.search(12)
