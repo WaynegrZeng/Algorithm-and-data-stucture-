@@ -17,3 +17,11 @@ class block_search:
                         if data[i]==key:
                             return i
             return "not here"
+
+测试代码：
+A=block_search()
+key=2
+data=[1,4,3,2,5,8,9,6]
+index_table=[[4,9],[0,4]]
+A.search(key=6,data=[1,4,3,2,5,8,9,6],index_table=index_table)
+#返回元素列表里的位置【从1开始计数】
