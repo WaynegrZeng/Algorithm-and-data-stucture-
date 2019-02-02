@@ -1,5 +1,5 @@
 哈希函数采用的余数法。
-collision的解决方式是直接往后线性移动寻找空位置。
+collision的解决方式是直接往后线性移动寻找空位置，直观的想用链表应该会效果更好。
 
 class Hashtable:
     def __init__(self,length=1000):
