@@ -1,0 +1,18 @@
+时间复杂度最坏平均都是n^2,最好为O(n)[即有序数列，一次遍历即可]，空间复杂度1，
+class Bubble:
+    def sort(self,List):
+        i=0
+        while i!=len(List)-1:
+            k=0
+            while k!=len(List)-i-1:
+                if List[k] > List[k+1]:
+                    List[k+1], List[k]= List[k], List[k+1]
+                k+=1
+            i+=1
+        return List
+            
+测试：            
+A=Bubble()
+aa=[1,4,2,6,3,10]
+A.sort(aa)
+[1, 2, 3, 4, 6, 10]
