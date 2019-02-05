@@ -1,0 +1,40 @@
+class mergesort:
+    #2个有序数列可以高效合并，这本身好像是一个leetcode或者剑指offer的题
+    def merge(self,a,b):
+        i=len(a)-1
+        j=len(b)-1
+        z=len(a)+len(b)-1
+        c=range(len(a)+len(b))
+        #采用pop方法弹出元素，当某个list为空时，循环停止
+        while a and b:
+            if a[i] > b[j]:
+                c[z]=a.pop()
+                i-=1
+                z-=1
+            else:
+                c[z]=b.pop()
+                j-=1
+                z-=1
+        #将非空的那个list的剩余元素合并到c里面
+        if a:
+            l=len(a)
+            for i in range(l):
+                c[i]=a[i]
+        else:
+            l=len(b)
+            for i in range(l):
+                c[i]=b[i]
+        return c
+    
+    def sort(self,List):
+        #递归的终止条件
+        if len(List)==1:
+            return List
+        else:
+            mid=len(List)/2
+            #不停二分，直到满足停止条件，再逐步merge回来;理解上正序写出二叉树，再倒序推导可能会更好理解
+            return self.merge(self.sort(List[:mid]),self.sort(List[mid:]))
+        
+   
+A=mergesort()
+A.sort([1,2,-1,0,-4,9])
