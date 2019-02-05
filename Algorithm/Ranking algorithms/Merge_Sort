@@ -7,7 +7,8 @@ class mergesort:
         c=range(len(a)+len(b))
         #采用pop方法弹出元素，当某个list为空时，循环停止
         while a and b:
-            if a[i] > b[j]:
+            #等于号放这里才能保证算法的stable性质（相等大小的数字保留相对排序）
+            if a[i] >= b[j]:
                 c[z]=a.pop()
                 i-=1
                 z-=1
