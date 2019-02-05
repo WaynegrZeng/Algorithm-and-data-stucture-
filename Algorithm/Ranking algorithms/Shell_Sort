@@ -1,0 +1,48 @@
+class shell_Sort():
+    
+    def __init__(self,stage_num=3,list_stage=[4,2,1]):
+        self.stage_num=stage_num
+        #List_stage一定要以1结尾，前面多少个都无所谓
+        self.list_stage=list_stage
+        self.i=0
+        self.current_stage=list_stage[self.i]
+        
+
+    def sort(self,List):
+        #组数
+        self.current_stage=self.list_stage[self.i]
+        #每个group分别做一次插入排序
+        for i in range(self.current_stage):
+            j=i+self.current_stage
+            while j <= len(List) - 1:
+                for k in range(i,j,self.current_stage):
+                    target=None
+                    if List[j]<List[k]:
+                        target=k
+                        break
+                if target==None:
+                    j+=self.current_stage
+                    continue
+                else:
+                    temp=List[j]
+                    for z in range(j,target,-5):
+                        List[z]=List[z-1]
+                    List[target]=temp
+                    j+=self.current_stage
+        if self.current_stage != 1:
+            self.i+=1
+            return self.sort(List)
+        else:
+            print List
+             
+测试：  
+A=shell_Sort()
+A.sort([1,2,3,4,9,1,-1,101,22,3,34,15,1435,334])
+                    
+                               
+                
+                
+                
+     
+            
+    
