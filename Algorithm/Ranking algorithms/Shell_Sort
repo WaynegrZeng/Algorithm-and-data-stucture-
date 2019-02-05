@@ -1,40 +1,50 @@
+希尔排序的原理语言难以描述，如要了解算法原理请打开readme处的博客，仔细看2分钟动图便可明白
+
 class shell_Sort():
     
-    def __init__(self,stage_num=3,list_stage=[4,2,1]):
-        self.stage_num=stage_num
+    def __init__(self,list_stage=[4,2,1]):
+        #list_stage的长度代表希尔排序的插入排序轮数，默认第一轮为4组，第二轮2组，最后一轮一组结束
         #List_stage一定要以1结尾，前面多少个都无所谓
         self.list_stage=list_stage
-        self.i=0
-        self.current_stage=list_stage[self.i]
-        
+        #递归计数用
+        self.i=0      
 
     def sort(self,List):
-        #组数
-        self.current_stage=self.list_stage[self.i]
+        if self.list_stage[-1] != 1:
+            return "list argument has to end with 1"
+        #gap代表当前轮次的切分组数,也是计数时index移动的个数
+        gap=self.list_stage[self.i]
         #每个group分别做一次插入排序
-        for i in range(self.current_stage):
-            j=i+self.current_stage
+        for i in range(gap):
+            #整体过程跟插入排序没有区别，需要注意的是每个位置上index的对齐，这个很头疼；只有直接操作index才能不增加空间复杂度。
+            j=i+gap
             while j <= len(List) - 1:
-                for k in range(i,j,self.current_stage):
+                for k in range(i,j,gap):
                     target=None
                     if List[j]<List[k]:
                         target=k
-                        break
+                        break        
                 if target==None:
-                    j+=self.current_stage
+                    j+=gap
                     continue
                 else:
                     temp=List[j]
-                    for z in range(j,target,-5):
-                        List[z]=List[z-1]
+                    for z in range(j,target,-gap):
+                        List[z]=List[z-gap]
                     List[target]=temp
-                    j+=self.current_stage
-        if self.current_stage != 1:
+                    j+=gap
+        if gap != 1:
             self.i+=1
+            print List
+            #希尔排序可以理解为先进行稀疏的插入排序，再进行全排，这样可以减少整体的列表数据移动次数，从而降低时间复杂度，
+            #每一次的稀疏插入排序算法结构是一致的，因此完全可以用递归
             return self.sort(List)
+
         else:
             print List
-             
+            #把递归计数归零
+            self.i=0
+                                        
 测试：  
 A=shell_Sort()
 A.sort([1,2,3,4,9,1,-1,101,22,3,34,15,1435,334])
