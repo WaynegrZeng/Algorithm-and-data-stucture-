@@ -1,4 +1,4 @@
-def xxx(twod_array,a_num):
+def ordered_2darray_search(twod_array,a_num):
     nrow = len(twod_array)
     ncol = len(twod_array[0])
     i = nrow-1
@@ -16,8 +16,8 @@ def xxx(twod_array,a_num):
     except Exception as e:
         print(repr(e))
 
-twodarrya = [[1,2],[3,4]]
+twod_array = [[1,2],[3,4]]
 
-anum = 2
+a_num = 2
 
-xxx(twodarrya,anum)
+ordered_2darray_search(twod_array,a_num)
